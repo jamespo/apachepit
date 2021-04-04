@@ -1,30 +1,32 @@
 -- checkpit: check if IP is in pit, return 401 if so
 function checkpit(r)
-   -- check if ip is in badhits table, return forbidden if so
    local retcode = apache2.OK
-   db = r:dbacquire()
+   db = r:dbacquire()  -- configured in mod_dbd in Apache
+   local statement, err = db:prepared(r, "checkpitsql")
    if not err then
-      -- check if IP is in badhit
-      local statement, err = db:prepared(r, "checkpitsql")
-      -- r:err("error " .. err)
+      local results, err = statement:select(r.useragent_ip)
       if not err then
-	 local results, err = statement:select(r.useragent_ip)
-	 -- local results, err = database:select(r, "SELECT `ip` FROM `badhit` WHERE `ip` = '127.0.0.1'")
-	 if not err then
-	    local row = results(-1) -- get one row
-	    k, v = pairs(row)
-	    if v ~= nil then
-	       -- match found, return unauthorized
-	       retcode = 401
-	    end
+	 local row = results(-1) -- get one row
+	 k, v = pairs(row)
+	 if v ~= nil then
+	    -- match found, return unauthorized
+	    retcode = 401
 	 end
       end
    end
-   -- db:close()
    return retcode
 end
 
 
-
+-- addtopit: add ip to pit
 function addtopit(r)
+   local retcode = apache2.OK
+   db = r:dbacquire()  -- configured in mod_dbd in Apache
+   if not err then
+      local statement, err = db:prepared(r, "addpitsql")
+      if not err then
+	 local results, err = statement:query(r.useragent_ip)
+      end
+   end
+   return 404
 end
