@@ -20,13 +20,10 @@ end
 
 -- addtopit: add ip to pit
 function addtopit(r)
-   local retcode = apache2.OK
    db = r:dbacquire()  -- configured in mod_dbd in Apache
+   local statement, err = db:prepared(r, "addpitsql")
    if not err then
-      local statement, err = db:prepared(r, "addpitsql")
-      if not err then
-	 local results, err = statement:query(r.useragent_ip)
-      end
+      local results, err = statement:query(r.useragent_ip)
    end
    return 404
 end
