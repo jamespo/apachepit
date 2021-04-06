@@ -22,7 +22,7 @@ mysql / mariadb server and webserver packages below:
 - Create DB, user & schema (see SQL/)  **Change default password**
 - Enable mod_dbd & mod_lua in Apache
 - Add Apache conf (see conf/apachepit.conf)
-- Copy apachepit.lua into configured dir (eg /opt/apacheput/lua/)
+- Copy apachepit.lua into configured dir (eg /opt/apachepit/lua/)
 - Restart Apache
 
 ## TODO
