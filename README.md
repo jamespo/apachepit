@@ -23,6 +23,7 @@ mysql / mariadb server and webserver packages below:
 - Enable mod_dbd & mod_lua in Apache
 - Add Apache conf (see conf/apachepit.conf)
 - Copy apachepit.lua into configured dir (eg /opt/apachepit/lua/)
+- Copy error docs into configured dir (eg /opt/apachepit/html/)
 - Restart Apache
 
 ## TODO
